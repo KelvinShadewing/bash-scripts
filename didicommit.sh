@@ -12,10 +12,12 @@ function didicommit() {
 			continue 1
 		fi
 		cd ..
-		pwd
 		A=`git status --porcelain`
-		B=`echo "$A" | wc -l`
+		B=`echo "$A" | sed 1d | wc -l`
 		B+=" files changed"
-		printf "${RED}$B${NC}\n"
+		if [[ $B != 0* ]]; then
+			pwd
+			printf "${RED}$B${NC}\n"
+		fi
 	done
 }
